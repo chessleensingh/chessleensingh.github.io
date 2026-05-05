@@ -1,0 +1,77 @@
+---
+import HeaderLink from './HeaderLink.astro';
+---
+
+<div class="nav-wrapper">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+  <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <nav class="nav-links">
+    <HeaderLink href="/research">Research</HeaderLink>
+    <HeaderLink href="/publications">Publications</HeaderLink>
+    <HeaderLink href="/cv">CV</HeaderLink>
+    <HeaderLink href="/projects">Projects</HeaderLink>
+    <HeaderLink href="/chess">Chess</HeaderLink>
+    <HeaderLink href="/blog">Blog</HeaderLink>
+    <HeaderLink href="/contact">Contact</HeaderLink>
+  </nav>
+</div>
+
+<style>
+  .nav-toggle {
+    display: none;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    padding: 0.5em;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: rgb(var(--black));
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+  }
+
+  @media (max-width: 720px) {
+    .nav-wrapper {
+      position: relative;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: calc(100% + 0.5em);
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(var(--gray), 25%);
+      padding: 0.5em 0;
+      min-width: 160px;
+      z-index: 100;
+      border-radius: 4px;
+    }
+
+    .nav-toggle:checked ~ .nav-links {
+      display: flex;
+    }
+  }
+</style>
