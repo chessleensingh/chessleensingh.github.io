@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="CV — Sachleen Singh"
+  description="Curriculum vitae for Sachleen Singh, PhD candidate in Molecular Biosciences."
+>
+  <h1>Curriculum Vitae</h1>
+
+  <div class="cv-download">
+    <a href="/cv.pdf" class="download-btn" target="_blank" rel="noopener">
+      Download CV (PDF)
+    </a>
+    <p class="cv-note">PDF will open in a new tab.</p>
+  </div>
+
+  <section class="cv-section">
+    <h2>Education</h2>
+    <div class="cv-entry">
+      <p class="cv-entry-title">PhD, Molecular Biosciences</p>
+      <p class="cv-entry-sub">Arkansas State University &middot; In progress</p>
+    </div>
+    <div class="cv-entry">
+      <p class="cv-entry-title">MS, Computer Science</p>
+      <p class="cv-entry-sub">Arkansas State University</p>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2>Research Interests</h2>
+    <p>
+      Computational genomics, long-read sequencing, DNA methylation, gene regulatory network
+      inference, single-cell multiomics, statistical methods for high-dimensional biological data.
+    </p>
+  </section>
+
+  <section class="cv-section">
+    <h2>Skills</h2>
+    <p>
+      Python, R, Linux/HPC environments, Oxford Nanopore sequencing, RNA-seq analysis,
+      ATAC-seq, SCENIC+, differential methylation analysis, network inference, machine learning
+      for genomics.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .cv-download {
+    margin: 2em 0 3em;
+  }
+
+  .download-btn {
+    display: inline-block;
+    padding: 0.6em 1.5em;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 1em;
+    transition: background 0.15s;
+  }
+
+  .download-btn:hover {
+    background: var(--accent-dark);
+    color: white;
+  }
+
+  .cv-note {
+    font-size: 0.8em;
+    color: rgb(var(--gray));
+    margin-top: 0.5em;
+  }
+
+  .cv-section {
+    margin-bottom: 2.5em;
+  }
+
+  .cv-section h2 {
+    font-size: 1.25em;
+    margin-bottom: 1em;
+    padding-bottom: 0.4em;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+  }
+
+  .cv-entry {
+    margin-bottom: 1em;
+  }
+
+  .cv-entry-title {
+    font-weight: 700;
+    margin-bottom: 0.1em;
+  }
+
+  .cv-entry-sub {
+    color: rgb(var(--gray));
+    font-size: 0.9em;
+    margin-top: 0;
+  }
+</style>
