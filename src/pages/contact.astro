@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT } from '../consts';
+---
+
+<BaseLayout
+  title="Contact — Sachleen Singh"
+  description="Get in touch with Sachleen Singh."
+>
+  <h1>Contact</h1>
+  <p>The best way to reach me is by email. I am also on the following platforms.</p>
+
+  <ul class="contact-list">
+    <li>
+      <span class="contact-label">Email</span>
+      <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+    </li>
+    <li>
+      <span class="contact-label">GitHub</span>
+      <a href={`https://github.com/${CONTACT.github}`} target="_blank" rel="noopener">
+        github.com/{CONTACT.github}
+      </a>
+    </li>
+    <li>
+      <span class="contact-label">LinkedIn</span>
+      <a href={CONTACT.linkedin} target="_blank" rel="noopener">
+        linkedin.com/in/sachleen-singh-582a32146
+      </a>
+    </li>
+    <li>
+      <span class="contact-label">ORCID</span>
+      <a href={`https://orcid.org/${CONTACT.orcid}`} target="_blank" rel="noopener">
+        {CONTACT.orcid}
+      </a>
+    </li>
+    <li>
+      <span class="contact-label">Google Scholar</span>
+      <a href={CONTACT.scholar} target="_blank" rel="noopener">
+        Scholar profile
+      </a>
+    </li>
+  </ul>
+</BaseLayout>
+
+<style>
+  p {
+    margin-bottom: 2em;
+  }
+
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 1em;
+    padding-bottom: 1.25em;
+    border-bottom: 1px solid rgb(var(--gray-light));
+  }
+
+  .contact-list li:last-child {
+    border-bottom: none;
+  }
+
+  .contact-label {
+    font-weight: 700;
+    min-width: 120px;
+    color: rgb(var(--black));
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>
