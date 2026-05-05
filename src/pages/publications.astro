@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const pubs = (await getCollection('publications')).sort(
+  (a, b) => b.data.year - a.data.year
+);
+
+const badgeClass: Record<string, string> = {
+  journal: 'badge-journal',
+  conference: 'badge-conference',
+  poster: 'badge-poster',
+};
+---
+
+<BaseLayout
+  title="Publications — Sachleen Singh"
+  description="Academic publications, conference papers, and posters."
+>
+  <h1>Publications</h1>
+
+  {pubs.length === 0 && <p>No publications yet.</p>}
+
+  <ul class="pub-list">
+    {pubs.map((pub) => (
+      <li class="pub-entry">
+        <p class="pub-title">{pub.data.title}</p>
+        <p class="pub-authors">{pub.data.authors}</p>
+        <p class="pub-venue">
+          {pub.data.venue} &middot; {pub.data.year}
+          <span class={`badge ${badgeClass[pub.data.type]}`}>{pub.data.type}</span>
+        </p>
+        {pub.data.description && (
+          <p class="pub-description">{pub.data.description}</p>
+        )}
+        <div class="pub-links">
+          {pub.data.doi && (
+            <a href={`https://doi.org/${pub.data.doi}`} target="_blank" rel="noopener">
+              DOI
+            </a>
+          )}
+          {pub.data.url && (
+            <a href={pub.data.url} target="_blank" rel="noopener">
+              Link
+            </a>
+          )}
+        </div>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  .pub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pub-entry {
+    padding: 1.5em 0;
+    border-bottom: 1px solid rgb(var(--gray-light));
+  }
+
+  .pub-entry:last-child {
+    border-bottom: none;
+  }
+
+  .pub-title {
+    font-weight: 700;
+    font-size: 1.05em;
+    margin-bottom: 0.25em;
+    color: rgb(var(--black));
+  }
+
+  .pub-authors {
+    font-size: 0.9em;
+    color: rgb(var(--gray-dark));
+    margin-bottom: 0.25em;
+  }
+
+  .pub-venue {
+    font-size: 0.9em;
+    color: rgb(var(--gray));
+    margin-bottom: 0.25em;
+  }
+
+  .pub-description {
+    font-size: 0.875em;
+    color: rgb(var(--gray-dark));
+    margin-top: 0.5em;
+  }
+
+  .pub-links {
+    margin-top: 0.5em;
+    display: flex;
+    gap: 0.75em;
+  }
+
+  .pub-links a {
+    font-size: 0.875em;
+    font-weight: 700;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.7em;
+    padding: 0.2em 0.6em;
+    border-radius: 1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+    margin-left: 0.5em;
+  }
+
+  .badge-journal { background: #e8f4f8; color: #1a6080; }
+  .badge-conference { background: #e8f0e8; color: #2a6030; }
+  .badge-poster { background: #f0e8f8; color: #6030a0; }
+</style>
