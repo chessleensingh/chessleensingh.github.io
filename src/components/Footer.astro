@@ -2,21 +2,100 @@
 const year = new Date().getFullYear();
 ---
 
-<footer>
-  <p>Sachleen Singh &middot; {year}</p>
+<footer class="colophon">
+  <div class="colophon-inner">
+    <div class="colophon-cols">
+      <section>
+        <h4>Contact</h4>
+        <p><a href="mailto:sachleen.singh2412@gmail.com">sachleen.singh2412@gmail.com</a></p>
+      </section>
+      <section>
+        <h4>Profiles</h4>
+        <p class="profile-links">
+          <a href="https://github.com/chessleensingh" target="_blank" rel="noopener">GitHub</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://www.linkedin.com/in/sachleen-singh-582a32146/" target="_blank" rel="noopener">LinkedIn</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://orcid.org/0009-0008-9395-7026" target="_blank" rel="noopener">ORCID</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=LaatNtQAAAAJ" target="_blank" rel="noopener">Scholar</a>
+        </p>
+      </section>
+      <section>
+        <h4>Currently</h4>
+        <p>Jonesboro, Arkansas. Exploring industry roles in computational biology.</p>
+      </section>
+    </div>
+    <div class="colophon-baseline">
+      <span>© {year} Sachleen Singh</span>
+      <span>Set in Newsreader &amp; Inter</span>
+    </div>
+  </div>
 </footer>
 
 <style>
-  footer {
-    padding: 2em 1em;
-    text-align: center;
-    color: rgb(var(--gray));
-    font-size: 0.9em;
-    border-top: 1px solid rgb(var(--gray-light));
+  .colophon {
     margin-top: 4em;
+    background: var(--paper-deep);
+    border-top: 1px solid var(--accent);
+  }
+  .colophon-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2.2em 1em 1.4em;
+  }
+  .colophon-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr;
+    gap: 2.4em;
+    margin-bottom: 1.6em;
+  }
+  .colophon-cols section { margin: 0; }
+  .colophon h4 {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.5em;
+    font-weight: 600;
+  }
+  .colophon p {
+    font-size: 0.85rem;
+    margin: 0;
+    color: var(--ink-body);
+    line-height: 1.55;
+  }
+  .colophon a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--rule-strong);
+  }
+  .colophon a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+  .profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    align-items: baseline;
+  }
+  .profile-links span { color: var(--rule-strong); }
+
+  .colophon-baseline {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    padding-top: 1em;
+    border-top: 1px solid var(--rule);
   }
 
-  footer p {
-    margin: 0;
+  @media (max-width: 720px) {
+    .colophon-cols { grid-template-columns: 1fr; gap: 1.4em; }
+    .colophon-baseline { flex-direction: column; gap: 4px; }
   }
 </style>

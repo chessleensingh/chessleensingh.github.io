@@ -1,45 +1,70 @@
 ---
-import { SITE_TITLE } from '../consts';
 import Nav from './Nav.astro';
 ---
 
-<header>
-  <div class="header-inner">
-    <h2><a href="/">{SITE_TITLE}</a></h2>
+<header class="masthead">
+  <div class="masthead-inner">
+    <a href="/" class="masthead-mark" aria-label="Home">
+      <span class="mark-glyph">SS</span>
+      <span class="mark-meta">Vol. 01 · Personal site</span>
+    </a>
     <Nav />
   </div>
+  <hr class="masthead-rule" />
 </header>
 
 <style>
-  header {
-    margin: 0;
-    padding: 0 1em;
-    background: white;
-    box-shadow: 0 2px 8px rgba(var(--black), 5%);
+  .masthead {
+    background: var(--paper);
     position: sticky;
     top: 0;
     z-index: 50;
+    backdrop-filter: saturate(1.2);
   }
-
-  .header-inner {
+  .masthead-inner {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    max-width: 720px;
+    align-items: flex-end;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 0;
+    padding: 1.5em 1em 0.9em;
+    gap: 1em;
   }
-
-  h2 {
-    margin: 0;
-    font-size: 1em;
-  }
-
-  h2 a,
-  h2 a.active {
+  .masthead-mark {
     text-decoration: none;
-    color: rgb(var(--black));
-    padding: 1em 0;
-    display: inline-block;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1;
+  }
+  .mark-glyph {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .mark-meta {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-feature-settings: 'tnum';
+  }
+  .masthead-rule {
+    border: 0;
+    border-top: 1px solid var(--accent);
+    max-width: 760px;
+    margin: 0 auto;
+    width: calc(100% - 2em);
+  }
+
+  @media (max-width: 720px) {
+    .masthead-inner { padding: 1em 1em 0.6em; align-items: center; }
+    .mark-glyph { font-size: 1.4rem; }
+    .mark-meta { display: none; }
   }
 </style>

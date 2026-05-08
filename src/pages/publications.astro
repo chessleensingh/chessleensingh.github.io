@@ -5,116 +5,125 @@ import { getCollection } from 'astro:content';
 const pubs = (await getCollection('publications')).sort(
   (a, b) => b.data.year - a.data.year
 );
-
-const badgeClass: Record<string, string> = {
-  journal: 'badge-journal',
-  conference: 'badge-conference',
-  poster: 'badge-poster',
-};
 ---
 
 <BaseLayout
   title="Publications — Sachleen Singh"
   description="Academic publications, conference papers, and posters."
 >
+  <p class="eyebrow">Publications &amp; preprints</p>
   <h1>Publications</h1>
+  <p class="lede">A running list of published work, preprints, and conference contributions.</p>
 
   {pubs.length === 0 && <p>No publications yet.</p>}
 
-  <ul class="pub-list">
-    {pubs.map((pub) => (
+  <ol class="pub-list">
+    {pubs.map((pub, i) => (
       <li class="pub-entry">
-        <p class="pub-title">{pub.data.title}</p>
-        <p class="pub-authors">{pub.data.authors}</p>
-        <p class="pub-venue">
-          {pub.data.venue} &middot; {pub.data.year}
-          <span class={`badge ${badgeClass[pub.data.type]}`}>{pub.data.type}</span>
-        </p>
-        {pub.data.description && (
-          <p class="pub-description">{pub.data.description}</p>
-        )}
-        <div class="pub-links">
-          {pub.data.doi && (
-            <a href={`https://doi.org/${pub.data.doi}`} target="_blank" rel="noopener">
-              DOI
-            </a>
+        <span class="pub-num">{String(i + 1).padStart(2, '0')}</span>
+        <div class="pub-body">
+          <p class="pub-title">{pub.data.title}</p>
+          <p class="pub-meta">
+            {pub.data.authors}
+            <span class="pub-sep">·</span>
+            <em>{pub.data.venue}</em>
+            <span class="pub-sep">·</span>
+            {pub.data.year}
+          </p>
+          {pub.data.description && (
+            <p class="pub-description">{pub.data.description}</p>
           )}
-          {pub.data.url && (
-            <a href={pub.data.url} target="_blank" rel="noopener">
-              Link
-            </a>
-          )}
+          <div class="pub-links">
+            {pub.data.doi && (
+              <a href={`https://doi.org/${pub.data.doi}`} target="_blank" rel="noopener">DOI</a>
+            )}
+            {pub.data.url && (
+              <a href={pub.data.url} target="_blank" rel="noopener">Link</a>
+            )}
+          </div>
         </div>
+        <span class={`pub-tag tag-${pub.data.type}`}>{pub.data.type}</span>
       </li>
     ))}
-  </ul>
+  </ol>
 </BaseLayout>
 
 <style>
   .pub-list {
     list-style: none;
     padding: 0;
+    margin: 1.5em 0 0;
+    counter-reset: pub;
+  }
+  .pub-entry {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 1.1em;
+    padding: 1.4em 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .pub-entry:first-child { border-top: 1px solid var(--accent); }
+  .pub-entry:last-child { border-bottom: none; }
+
+  .pub-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-muted);
+    padding-top: 4px;
+    font-feature-settings: 'tnum';
+  }
+  .pub-title {
+    font-family: var(--font-display);
+    font-size: 1.18rem;
+    line-height: 1.3;
+    margin: 0 0 0.3em;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .pub-meta {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
     margin: 0;
   }
-
-  .pub-entry {
-    padding: 1.5em 0;
-    border-bottom: 1px solid rgb(var(--gray-light));
-  }
-
-  .pub-entry:last-child {
-    border-bottom: none;
-  }
-
-  .pub-title {
-    font-weight: 700;
-    font-size: 1.05em;
-    margin-bottom: 0.25em;
-    color: rgb(var(--black));
-  }
-
-  .pub-authors {
-    font-size: 0.9em;
-    color: rgb(var(--gray-dark));
-    margin-bottom: 0.25em;
-  }
-
-  .pub-venue {
-    font-size: 0.9em;
-    color: rgb(var(--gray));
-    margin-bottom: 0.25em;
-  }
-
+  .pub-meta em { font-style: italic; color: var(--ink-body); }
+  .pub-sep { color: var(--rule-strong); padding: 0 0.3em; }
   .pub-description {
-    font-size: 0.875em;
-    color: rgb(var(--gray-dark));
-    margin-top: 0.5em;
+    font-size: 0.88rem;
+    color: var(--ink-body);
+    margin: 0.5em 0 0;
+    max-width: 56ch;
   }
-
   .pub-links {
-    margin-top: 0.5em;
+    margin-top: 0.6em;
     display: flex;
-    gap: 0.75em;
+    gap: 0.9em;
   }
-
   .pub-links a {
-    font-size: 0.875em;
-    font-weight: 700;
-  }
-
-  .badge {
-    display: inline-block;
-    font-size: 0.7em;
-    padding: 0.2em 0.6em;
-    border-radius: 1em;
-    font-weight: 700;
+    font-size: 0.8rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    vertical-align: middle;
-    margin-left: 0.5em;
+    letter-spacing: 0.06em;
   }
 
-  .badge-journal { background: #e8f4f8; color: #1a6080; }
-  .badge-conference { background: #e8f0e8; color: #2a6030; }
-  .badge-poster { background: #f0e8f8; color: #6030a0; }
+  .pub-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.3em 0.7em;
+    border: 1px solid currentColor;
+    align-self: start;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .pub-tag.tag-journal { color: #1a6080; }
+  .pub-tag.tag-conference { color: #2a6030; }
+  .pub-tag.tag-poster { color: #6030a0; }
+
+  @media (max-width: 720px) {
+    .pub-entry { grid-template-columns: 28px 1fr; }
+    .pub-tag { grid-column: 2; justify-self: start; margin-top: 0.5em; }
+  }
 </style>
